@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import * as Sentry from '@sentry/browser'
+import { version as appVersion } from './../package.json'
 import App from './App'
 
 if ('serviceWorker' in navigator) {

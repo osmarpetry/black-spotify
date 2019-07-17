@@ -2,6 +2,7 @@
     "name": "spotify-black",
     "version": "0.1.0",
     "dependencies": {
+        "query-string": "6.8.1",
         "react": "16.6.0",
         "react-dom": "16.6.0",
         "react-router-dom": "5.0.0",
@@ -9,7 +10,7 @@
     },
     "scripts": {
         "test": "mocha spec/**/*.spec.js",
-        "start": "webpack-dev-server --color --mode development",
+        "start": "webpack-dev-server --color --mode development --port 3000",
         "start:prod": "webpack-dev-server --progress --color --mode production",
         "cy:open": "cypress open",
         "cy:run": "cypress run",
