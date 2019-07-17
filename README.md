@@ -1,4 +1,6 @@
 # Black Spotify
+![Travis Build Status](https://api.travis-ci.org/osmarpetry/black-spotify.svg?branch=master)
+
 Application developed during the year 2019. The application shows the music album from [Spotify](https://www.spotify.com).
 
 My Lighthouse score is in the following image:
