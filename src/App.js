@@ -11,26 +11,31 @@ class App extends Component {
         }
     }
 
-    renderImg = (src, alt) => {
+    renderImg = (src, alt, uri) => {
         return (
-            <img
-                src={ src }
-                alt={ alt }
-                width='300'
-                height='300'
-                style={ {
-                    margin: '15px'
-                } }
-            />
+            <a href={ uri } >
+                <img
+                    src={ src }
+                    alt={ alt }
+                    width='300'
+                    height='300'
+                    style={ {
+                        margin: '15px'
+                    } }
+                />
+            </a>
         )
     }
 
     componentDidMount() {
         const accessToken = queryString.parse(window.location.search).access_token
 
-        fetch('https://api.spotify.com/v1/recommendations?limit=10&market=BR&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA', {
-            headers: { 'Authorization': 'Bearer ' + accessToken }
-        })
+        fetch(
+            'https://api.spotify.com/v1/recommendations?limit=10&market=BR' +
+            '&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2' +
+            'Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA', {
+                headers: { 'Authorization': 'Bearer ' + accessToken }
+            })
             .then(res => res.json())
             .then(data => this.setState({
                 serverData: {
@@ -38,10 +43,33 @@ class App extends Component {
                 }
             }))
             .catch(console.log)
+    }
 
+    componentDidUpdate(prevState) {
+        const accessToken = queryString.parse(window.location.search).access_token
+
+        if (prevState.filterString !== this.state.filterString) {
+            console.log('diferente')
+
+            fetch(
+                'https://api.spotify.com/v1/search?q=' +
+                this.state.filterString +
+                '&type=album&market=US&limit=10&offset=10', {
+                    headers: { 'Authorization': 'Bearer ' + accessToken }
+                })
+                .then(res => res.json())
+                .then(data => this.setState({
+                    serverData: {
+                        albums: data.albums.items
+                    }
+                }))
+        }
     }
 
     render() {
+
+        console.log('aqui: ', this.state.serverData)
+
         return (
             <div className='App'>
                 <header className='App-header'>
@@ -83,15 +111,10 @@ class App extends Component {
                         justifyContent: 'center'
                     } }>
                     { this.state.serverData.albums ? this.state.serverData.albums.map(res => {
-                        if (this.state.filterString.length > 0) {
-                            console.log('entro')
-                            if (res.album.name.toLowerCase().includes(this.state.filterString.toLowerCase())) {
-                                return this.renderImg(res.album.images[0].url, res.album.name)
-                            }
+                        if (res.album) {
+                            return this.renderImg(res.album.images[0].url, res.album.name, res.album.uri)
                         } else {
-                            console.log('aqui')
-
-                            return this.renderImg(res.album.images[0].url, res.album.name)
+                            return this.renderImg(res.images[0].url, res.name, res.uri)
                         }
                     }
                     ) : <h1>Nada</h1> }
