@@ -12,6 +12,30 @@ class App extends Component {
         }
     }
 
+    renderAlbum = (src, alt, tracks) => {
+        return (
+            <div>
+                <img
+                    onClick={ () => this.setState({ selectedId: id }) }
+                    src={ src }
+                    alt={ alt }
+                    width='300'
+                    height='300'
+                    style={ {
+                        margin: '15px'
+                    } }
+                />
+                { tracks.map(val => (
+                    <ul>
+                        <li>
+                            { val.track_number } - { val.name } - { val.duration_ms }ms
+                        </li>
+                    </ul>
+                )) }
+            </div>
+        )
+    }
+
     renderImg = (src, alt, id) => {
         return (
             <img
@@ -137,10 +161,10 @@ class App extends Component {
                             ) : <h1>Nada</h1>
                         : (
                             this.state.serverData.album && (
-                                this.renderImg(
+                                this.renderAlbum(
                                     this.state.serverData.album.images[0].url,
                                     this.state.serverData.album.name,
-                                    this.state.serverData.album.id
+                                    this.state.serverData.album.tracks.items
                                 )
                             )
                         ) }
