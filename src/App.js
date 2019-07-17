@@ -45,7 +45,7 @@ class App extends Component {
             .catch(console.log)
     }
 
-    componentDidUpdate(prevState) {
+    componentDidUpdate(prevProps, prevState) {
         const accessToken = queryString.parse(window.location.search).access_token
 
         if (this.state.selectedId !== '' && prevState.selectedId !== this.state.selectedId) {
