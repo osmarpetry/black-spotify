@@ -7,23 +7,23 @@ class App extends Component {
         super()
         this.state = {
             serverData: {},
-            filterString: ''
+            filterString: '',
+            selectedId: ''
         }
     }
 
-    renderImg = (src, alt, uri) => {
+    renderImg = (src, alt, id) => {
         return (
-            <a href={ uri } >
-                <img
-                    src={ src }
-                    alt={ alt }
-                    width='300'
-                    height='300'
-                    style={ {
-                        margin: '15px'
-                    } }
-                />
-            </a>
+            <img
+                onClick={ () => this.setState({ selectedId: id }) }
+                src={ src }
+                alt={ alt }
+                width='300'
+                height='300'
+                style={ {
+                    margin: '15px'
+                } }
+            />
         )
     }
 
@@ -48,9 +48,25 @@ class App extends Component {
     componentDidUpdate(prevState) {
         const accessToken = queryString.parse(window.location.search).access_token
 
-        if (prevState.filterString !== this.state.filterString) {
-            console.log('diferente')
+        if (this.state.selectedId !== '' && prevState.selectedId !== this.state.selectedId) {
+            console.log('entrei: ', this.state.selectedId)
+            fetch(
+                'https://api.spotify.com/v1/albums/' +
+                this.state.selectedId, {
+                    headers: { 'Authorization': 'Bearer ' + accessToken }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    this.setState({
+                        serverData: {
+                            album: data
+                        }
+                    })
+                })
+        }
 
+        if (this.state.filterString !== '' && prevState.filterString !== this.state.filterString) {
             fetch(
                 'https://api.spotify.com/v1/search?q=' +
                 this.state.filterString +
@@ -64,12 +80,10 @@ class App extends Component {
                     }
                 }))
         }
+
     }
 
     render() {
-
-        console.log('aqui: ', this.state.serverData)
-
         return (
             <div className='App'>
                 <header className='App-header'>
@@ -81,7 +95,7 @@ class App extends Component {
                         height='100'
                     />
                     Black Spotify
-                    <button onClick={ () => window.location = 'http://localhost:8888/login' }>Login</button>
+                    <button onClick={ () => window.location = 'https://black-spotify.herokuapp.com/login' }>Login</button>
                 </header>
                 <section
                     style={ {
@@ -110,14 +124,26 @@ class App extends Component {
                         flexWrap: 'wrap',
                         justifyContent: 'center'
                     } }>
-                    { this.state.serverData.albums ? this.state.serverData.albums.map(res => {
-                        if (res.album) {
-                            return this.renderImg(res.album.images[0].url, res.album.name, res.album.uri)
-                        } else {
-                            return this.renderImg(res.images[0].url, res.name, res.uri)
-                        }
-                    }
-                    ) : <h1>Nada</h1> }
+
+                    { this.state.selectedId === ''
+                        ? this.state.serverData.albums
+                            ? this.state.serverData.albums.map(res => {
+                                if (res.album) {
+                                    return this.renderImg(res.album.images[0].url, res.album.name, res.album.id)
+                                } else {
+                                    return this.renderImg(res.images[0].url, res.name, res.id)
+                                }
+                            }
+                            ) : <h1>Nada</h1>
+                        : (
+                            this.state.serverData.album && (
+                                this.renderImg(
+                                    this.state.serverData.album.images[0].url,
+                                    this.state.serverData.album.name,
+                                    this.state.serverData.album.id
+                                )
+                            )
+                        ) }
                 </section>
             </div>
         )
