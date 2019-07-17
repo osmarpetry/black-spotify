@@ -1,0 +1,15 @@
+{
+    "plugins": [
+        "transform-class-properties",
+        [
+            "@babel/plugin-transform-runtime",
+            {
+                "regenerator": true,
+            }
+        ],
+    ],
+    "presets": [
+        "@babel/react",
+        ["@babel/env", { "modules": false }]
+    ]
+}

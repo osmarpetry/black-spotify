@@ -1,0 +1,28 @@
+language: node_js
+node_js:
+  - 10
+addons:
+  apt:
+    packages:
+      - libgconf-2-4
+cache:
+  yarn: true
+  directories:
+    - ~/.cache
+
+before_install:
+  - yarn global add firebase-tools
+install:
+  - npm i
+
+before_script:
+  - yarn test
+  - yarn start:prod -- --silent &
+script:
+  - yarn cy:run
+after_success:
+  - yarn release
+  - firebase deploy -m "Travis deploy" --non-interactive --token $FIREBASE_TOKEN
+branches:
+  only:
+    - master

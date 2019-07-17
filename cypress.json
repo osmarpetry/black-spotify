@@ -1,0 +1,7 @@
+{
+    "projectID": "black-spotify",
+    "video": false,
+    "baseUrl": "http://localhost:8080",
+    "chromeWebSecurity": false,
+    "ignoreTestFiles": ["/**/*.step.js"]
+}
