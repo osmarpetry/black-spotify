@@ -1,17 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import logo from './spotify-logo.svg'
-import queryString from 'query-string'
+
+import { connect, Provider } from 'react-redux'
+import { applyMiddleware,bindActionCreators, createStore } from 'redux'
+import thunk from 'redux-thunk'
+import { load, save } from 'redux-localstorage-simple'
 
 import AlbumDetails from './components/AlbumDetails'
 import AlbumBanner from './components/AlbumBanner'
 import Search from './components/Search'
 
-const App = () => {
-    const accessToken = queryString.parse(window.location.search).access_token
+import { getAlbum, getAlbums } from './redux/albums/actions'
 
+const App = () => {
     const [serverData, setServerData] = useState({})
     const [searchText, setSearchText] = useState('')
     const [selectedId, setSelectedId] = useState('')
+
+    const middleware = [thunk]
+
+    const store = createStore(
+        rootReducer,
+        load(),
+        applyMiddleware(...middleware, save())
+    )
 
     const handleSelectedId = selectedId => () => {
         setSelectedId(selectedId)
@@ -27,37 +39,43 @@ const App = () => {
 
     useEffect(() => {
         if (searchText !== '') {
-            fetch(
-                'https://api.spotify.com/v1/search?q=' +
-                searchText +
-                '&type=album&market=US&limit=10&offset=10', {
-                    headers: { 'Authorization': 'Bearer ' + accessToken }
-                })
-                .then(res => res.json())
-                .then(data => setServerData({
-                    albums: data.albums.items
-                }))
+            this.props.getAlbums(searchText)
+            /*
+             * fetch(
+             * 'https://api.spotify.com/v1/search?q=' +
+             * searchText +
+             * '&type=album&market=US&limit=10&offset=10', {
+             * headers: { 'Authorization': 'Bearer ' + accessToken }
+             * })
+             * .then(res => res.json())
+             * .then(data => setServerData({
+             * albums: data.albums.items
+             * }))
+             */
         }
     }, [searchText])
 
     useEffect(() => {
         if (selectedId !== '') {
-            fetch(
-                'https://api.spotify.com/v1/albums/' +
-                selectedId, {
-                    headers: { 'Authorization': 'Bearer ' + accessToken }
-                })
-                .then(res => res.json())
-                .then(data => {
-                    setServerData({
-                        album: data
-                    })
-                })
+            this.props.getAlbum(selectedId)
+            /*
+             * fetch(
+             * 'https://api.spotify.com/v1/albums/' +
+             * selectedId, {
+             * headers: { 'Authorization': 'Bearer ' + accessToken }
+             * })
+             * .then(res => res.json())
+             * .then(data => {
+             * setServerData({
+             * album: data
+             * })
+             * })
+             */
         }
     }, [selectedId])
 
     return (
-        <>
+        <Provider store={ store }>
             <div className='App' style={ {
                 display: 'grid',
                 gridTemplateColumns: 'auto 1fr'
@@ -117,8 +135,29 @@ const App = () => {
                 </section>
             </div>
             <button onClick={ handleLogin }>Login</button>
-        </>
+        </Provider>
     )
 }
 
-export default App
+const mapStateToProps = state => ({
+    album: state.albums.album,
+    albums: state.albums.albums,
+    isAlbumLoaded: state.albums.isAlbumLoaded,
+    isAlbumsLoaded: state.albums.isAlbumsLoaded,
+    albumsLoadedAt: state.albums.albumsLoadedAt
+})
+
+const mapDispatchProps = dispatch =>
+    bindActionCreators(
+        {
+            getAlbums,
+            getAlbum,
+            resetAlbum
+        },
+        dispatch
+    )
+
+export default connect(
+    mapStateToProps,
+    mapDispatchProps
+)(App)
