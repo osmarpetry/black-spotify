@@ -1,5 +1,22 @@
-body {
+* {
   background: #000000;
   color: #ffffff;
   font-family: 'Roboto', sans-serif;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+input{
+  padding: 10px 20px;
+  border-color: transparent;
+  border-bottom: 1px solid darkgrey;
+  font-size: 48px;
+  font-weight: bold;
+  background: transparent;
+}
+
+input:focus{
+  outline: none;
 }
