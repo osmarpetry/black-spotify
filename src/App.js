@@ -2,20 +2,16 @@ import React, { Component } from 'react'
 import logo from './spotify-logo.svg'
 import queryString from 'query-string'
 
+import Album from './components/Album'
+
 class App extends Component {
     constructor() {
         super()
         this.state = {
             serverData: {},
             filterString: '',
-            selectedId: '',
-            playingId: ''
+            selectedId: ''
         }
-    }
-
-    stopAudio = id => {
-        document.getElementById(id).pause()
-        document.getElementById(id).currentTime = 0
     }
 
     renderAlbum = (src, alt, tracks) => {
@@ -30,21 +26,7 @@ class App extends Component {
                         margin: '15px'
                     } }
                 />
-                { tracks.map(val => (
-                    <ul>
-                        <li>
-                            <button onClick={ () => {
-                                this.state.playingId !== '' && this.stopAudio(this.state.playingId)
-                                document.getElementById(val.id).play()
-                                this.setState({ playingId: val.id })
-                            } }>play!</button>
-                            { val.track_number } - { val.name } - { val.duration_ms/60000 }
-                            <audio id={ val.id } controls='controls' style={ { display: 'none' } }>
-                                <source src={ val.preview_url } type='audio/mpeg' />
-                            </audio>
-                        </li>
-                    </ul>
-                )) }
+                <Album tracks={ tracks } />
             </div>
         )
     }
