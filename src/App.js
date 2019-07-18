@@ -4,19 +4,28 @@ import queryString from 'query-string'
 
 import Album from './components/Album'
 import Banner from './components/Banner'
+import Search from './components/Search'
 
 class App extends Component {
     constructor() {
         super()
         this.state = {
             serverData: {},
-            filterString: '',
+            searchText: '',
             selectedId: ''
         }
     }
 
     handleSelectedId = selectedId => () => {
         this.setState({ selectedId })
+    }
+
+    handelSearch = event => {
+        this.setState({ searchText: event.target.value })
+    }
+
+    handleLogin = () => {
+        window.location = 'https://black-spotify.herokuapp.com/login'
     }
 
     renderAlbum = (src, alt, tracks) => {
@@ -52,7 +61,10 @@ class App extends Component {
     componentDidUpdate(prevProps, prevState) {
         const accessToken = queryString.parse(window.location.search).access_token
 
-        if (this.state.selectedId !== '' && prevState.selectedId !== this.state.selectedId) {
+        if (
+            this.state.selectedId !== '' &&
+            prevState.selectedId !== this.state.selectedId
+        ) {
             console.log('entrei: ', this.state.selectedId)
             fetch(
                 'https://api.spotify.com/v1/albums/' +
@@ -70,10 +82,13 @@ class App extends Component {
                 })
         }
 
-        if (this.state.filterString !== '' && prevState.filterString !== this.state.filterString) {
+        if (
+            this.state.searchText !== '' &&
+            prevState.searchText !== this.state.searchText
+        ) {
             fetch(
                 'https://api.spotify.com/v1/search?q=' +
-                this.state.filterString +
+                this.state.searchText +
                 '&type=album&market=US&limit=10&offset=10', {
                     headers: { 'Authorization': 'Bearer ' + accessToken }
                 })
@@ -91,37 +106,21 @@ class App extends Component {
         return (
             <div className='App'>
                 <header className='App-header'>
-                    <img
-                        src={ logo }
-                        name='App-logo'
-                        alt='logo'
-                        width='200'
-                        height='100'
-                    />
+                    <a href={ window.location.href }>
+                        <img
+                            src={ logo }
+                            name='App-logo'
+                            alt='logo'
+                            width='200'
+                            height='100'
+                        />
+                    </a>
                     Black Spotify
-                    <button onClick={ () => window.location = 'https://black-spotify.herokuapp.com/login' }>Login</button>
                 </header>
-                <section
-                    style={ {
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        justifyContent: 'center'
-                    } }>
-                    <h3 style={ { flex: '1 0 100%', textAlign: 'center' } }>Busque por artis, álbuns ou músicas</h3>
-                    <input
-                        style={ {
-                            flex: '1 0 100%',
-                            width: '400px'
-                        } }
-                        vaue={ this.state.filterString }
-                        onChange={ value => this.setState({
-                            filterString: value.target.value
-                        }) }
-                    />
-                    { this.state.filterString.length > 0 && (
-                        <h3>Resultados encontradados para "{ this.state.filterString }"</h3>
-                    ) }
-                </section>
+                <Search
+                    onSearch={ this.handelSearch }
+                    searchText={ this.state.searchText }
+                />
                 <section
                     style={ {
                         display: 'flex',
@@ -137,7 +136,9 @@ class App extends Component {
                                             src={ res.album.images[0].url }
                                             alt={ res.album.name }
                                             key={ res.album.id }
-                                            onClick={ this.handleSelectedId(res.album.id) }
+                                            onClick={
+                                                this.handleSelectedId(res.album.id)
+                                            }
                                         />
                                     )
                                 } else {
@@ -151,15 +152,21 @@ class App extends Component {
                                     )
                                 }
                             }
-                            )) : <h1>Loading...</h1>
+                            )) : <button onClick={ this.handleLogin }>Login</button>
                         : (
                             this.state.serverData.album && (
                                 <div>
                                     <Banner
-                                        src={ this.state.serverData.album.images[0].url }
+                                        src={
+                                            this.state.serverData.album.images[0].url
+                                        }
                                         alt={ this.state.serverData.album.name }
                                     />
-                                    <Album tracks={ this.state.serverData.album.tracks.items } />
+                                    <Album
+                                        tracks={
+                                            this.state.serverData.album.tracks.items
+                                        }
+                                    />
                                 </div>
                             )
                         ) }
