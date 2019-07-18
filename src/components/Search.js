@@ -18,7 +18,7 @@ const Search = props => {
                     flex: '1 0 100%',
                     width: '400px'
                 } }
-                placeHolder='Comece a escrever...'
+                placeholder='Comece a escrever...'
                 vaue={ props.searchText }
                 onChange={ props.onSearch }
             />
