@@ -13,6 +13,11 @@ class App extends Component {
         }
     }
 
+    stopAudio = id => {
+        document.getElementById(id).pause()
+        document.getElementById(id).currentTime = 0
+    }
+
     renderAlbum = (src, alt, tracks) => {
         return (
             <div>
@@ -28,10 +33,12 @@ class App extends Component {
                 { tracks.map(val => (
                     <ul>
                         <li>
-                            <button onClick={ () =>
+                            <button onClick={ () => {
+                                this.state.playingId !== '' && this.stopAudio(this.state.playingId)
+                                document.getElementById(val.id).play()
                                 this.setState({ playingId: val.id })
-                            }>play!</button>
-                            { val.track_number } - { val.name } - { val.duration_ms }ms
+                            } }>play!</button>
+                            { val.track_number } - { val.name } - { val.duration_ms/60000 }
                             <audio id={ val.id } controls='controls' style={ { display: 'none' } }>
                                 <source src={ val.preview_url } type='audio/mpeg' />
                             </audio>
@@ -77,12 +84,6 @@ class App extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         const accessToken = queryString.parse(window.location.search).access_token
-
-        if (prevState.playingId !== this.state.playingId) {
-            console.log('1', this.state.playingId, '2', prevState.playingId)
-            prevState.playingId && document.getElementById(prevState.playingId).pause()
-            document.getElementById(this.state.playingId).play()
-        }
 
         if (this.state.selectedId !== '' && prevState.selectedId !== this.state.selectedId) {
             console.log('entrei: ', this.state.selectedId)
