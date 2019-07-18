@@ -1,4 +1,11 @@
 import React, { useState } from 'react'
+import styled from 'styled-components'
+
+const AlbumTrackLine = styled.div`
+    display:grid;
+    grid-template-columns: auto auto 1fr auto;
+    grid-gap: 10px;
+`
 
 const AlbumTracks = props => {
     const [playingId, setPlayingId] = useState('')
@@ -27,13 +34,17 @@ const AlbumTracks = props => {
                             type='audio/mpeg'
                         />
                     </audio>
-                    <button
-                        onClick={ handleAudio(track.id) }>
+                    <AlbumTrackLine>
+                        <button
+                            onClick={ handleAudio(track.id) }>
                             Play preview!
-                    </button>
-                    { track.track_number } -
-                    { track.name } -
-                    { track.duration_ms / 60000 }
+                        </button>
+                        <p>{ track.track_number }.</p>
+                        <p>{ track.name }</p>
+                        <p style={ {
+                            gridColumn: 4
+                        } }>{ track.duration_ms / 60000 }</p>
+                    </AlbumTrackLine>
                 </li>
             </ul>
         ))
