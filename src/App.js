@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import logo from './spotify-logo.svg'
 import queryString from 'query-string'
 
-import Album from './components/Album'
-import Banner from './components/Banner'
+import AlbumDetails from './components/AlbumDetails'
+import AlbumBanner from './components/AlbumBanner'
 import Search from './components/Search'
 
 const App = () => {
@@ -100,7 +100,7 @@ const App = () => {
                         serverData.albums.map(res => {
                             if (res.album) {
                                 return (
-                                    <Banner
+                                    <AlbumBanner
                                         src={ res.album.images[0].url }
                                         alt={ res.album.name }
                                         key={ res.album.id }
@@ -111,7 +111,7 @@ const App = () => {
                                 )
                             } else {
                                 return (
-                                    <Banner
+                                    <AlbumBanner
                                         src={ res.images[0].url }
                                         alt={ res.name }
                                         key={ res.id }
@@ -123,19 +123,15 @@ const App = () => {
                         )) : <button onClick={ handleLogin }>Login</button>
                     : (
                         serverData.album && (
-                            <div>
-                                <Banner
-                                    src={
-                                        serverData.album.images[0].url
-                                    }
-                                    alt={ serverData.album.name }
-                                />
-                                <Album
-                                    tracks={
-                                        serverData.album.tracks.items
-                                    }
-                                />
-                            </div>
+                            <AlbumDetails
+                                imageSrc={
+                                    serverData.album.images[0].url
+                                }
+                                imageAlt={
+                                    serverData.album.name
+                                }
+                                tracks={ serverData.album.tracks.items }
+                            />
                         )
                     ) }
             </section>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Banner = props =>
+const AlbumBanner = props =>
     <img
         onClick={ props.onClick }
         src={ props.src }
@@ -12,4 +12,4 @@ const Banner = props =>
         } }
     />
 
-export default Banner
+export default AlbumBanner

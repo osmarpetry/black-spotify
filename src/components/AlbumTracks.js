@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Album = props => {
+const AlbumTracks = props => {
     const [playingId, setPlayingId] = useState('')
 
     const stopAudio = id => {
@@ -40,4 +40,4 @@ const Album = props => {
     )
 }
 
-export default Album
+export default AlbumTracks
