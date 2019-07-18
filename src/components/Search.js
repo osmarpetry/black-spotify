@@ -6,11 +6,10 @@ const Search = props => {
             style={ {
                 display: 'flex',
                 flexWrap: 'wrap',
-                justifyContent: 'center'
+                placeContent: 'center'
             } }>
             <h3 style={ {
-                flex: '1 0 100%',
-                textAlign: 'center'
+                flex: '1 0 100%'
             } }>
                 Busque por artistas, álbuns ou músicas
             </h3>
@@ -19,6 +18,7 @@ const Search = props => {
                     flex: '1 0 100%',
                     width: '400px'
                 } }
+                placeHolder='Comece a escrever...'
                 vaue={ props.searchText }
                 onChange={ props.onSearch }
             />

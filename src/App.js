@@ -26,25 +26,25 @@ const App = () => {
     }
 
     useEffect(() => {
-        fetch(
-            'https://api.spotify.com/v1/recommendations?limit=10&market=BR' +
-            '&seed_artists=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical%2' +
-            'Ccountry&seed_tracks=0c6xIDDpzE81m2q797ordA', {
-                headers: { 'Authorization': 'Bearer ' + accessToken }
-            })
-            .then(res => res.json())
-            .then(data => {
-                setServerData({
-                    albums: data.tracks
+        if (searchText !== '') {
+            fetch(
+                'https://api.spotify.com/v1/search?q=' +
+                searchText +
+                '&type=album&market=US&limit=10&offset=10', {
+                    headers: { 'Authorization': 'Bearer ' + accessToken }
                 })
-            })
-    }, [])
+                .then(res => res.json())
+                .then(data => setServerData({
+                    albums: data.albums.items
+                }))
+        }
+    }, [searchText])
 
     useEffect(() => {
-        if(selectedId !== '') {
+        if (selectedId !== '') {
             fetch(
                 'https://api.spotify.com/v1/albums/' +
-            selectedId, {
+                selectedId, {
                     headers: { 'Authorization': 'Bearer ' + accessToken }
                 })
                 .then(res => res.json())
@@ -56,61 +56,42 @@ const App = () => {
         }
     }, [selectedId])
 
-    useEffect(() => {
-        if(searchText !== '') {
-            fetch(
-                'https://api.spotify.com/v1/search?q=' +
-            searchText +
-            '&type=album&market=US&limit=10&offset=10', {
-                    headers: { 'Authorization': 'Bearer ' + accessToken }
-                })
-                .then(res => res.json())
-                .then(data => setServerData({
-                    albums: data.albums.items
-                }))
-        }
-    }, [searchText])
-
     return (
-        <div className='App'>
-            <header className='App-header'>
-                <a href={ window.location.href }>
-                    <img
-                        src={ logo }
-                        name='App-logo'
-                        alt='logo'
-                        width='200'
-                        height='100'
-                    />
-                </a>
-                Black Spotify
-            </header>
-            <Search
-                onSearch={ handelSearch }
-                searchText={ searchText }
-            />
-            <section
-                style={ {
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center'
+        <>
+            <div className='App' style={ {
+                display: 'grid',
+                gridTemplateColumns: 'auto 1fr'
+            } }>
+                <header className='App-header' style={ {
+                    marginTop: '20px'
                 } }>
-                { selectedId === ''
-                    ? serverData.albums ? (
-                        serverData.albums.map(res => {
-                            if (res.album) {
-                                return (
-                                    <AlbumBanner
-                                        src={ res.album.images[0].url }
-                                        alt={ res.album.name }
-                                        key={ res.album.id }
-                                        onClick={
-                                            handleSelectedId(res.album.id)
-                                        }
-                                    />
-                                )
-                            } else {
-                                return (
+                    <a href={ window.location.href }>
+                        <img
+                            src={ logo }
+                            name='App-logo'
+                            alt='logo'
+                            width='200'
+                            height='100'
+                        />
+                    </a>
+                </header>
+                <section
+                    style={ {
+                        display: 'grid',
+                        gridTemplateColumns: 'auto 1ft auto'
+                    } }>
+                    <Search
+                        onSearch={ handelSearch }
+                        searchText={ searchText }
+                    />
+                    <div style={ {
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        placeContent: 'center'
+                    } }>
+                        { selectedId === ''
+                            ? serverData.albums ? (
+                                serverData.albums.map(res => (
                                     <AlbumBanner
                                         src={ res.images[0].url }
                                         alt={ res.name }
@@ -118,24 +99,25 @@ const App = () => {
                                         onClick={ handleSelectedId(res.id) }
                                     />
                                 )
-                            }
-                        }
-                        )) : <button onClick={ handleLogin }>Login</button>
-                    : (
-                        serverData.album && (
-                            <AlbumDetails
-                                imageSrc={
-                                    serverData.album.images[0].url
-                                }
-                                imageAlt={
-                                    serverData.album.name
-                                }
-                                tracks={ serverData.album.tracks.items }
-                            />
-                        )
-                    ) }
-            </section>
-        </div>
+                                )) : <h2>Busque por algum álbum</h2>
+                            : (
+                                serverData.album && (
+                                    <AlbumDetails
+                                        imageSrc={
+                                            serverData.album.images[0].url
+                                        }
+                                        imageAlt={
+                                            serverData.album.name
+                                        }
+                                        tracks={ serverData.album.tracks.items }
+                                    />
+                                )
+                            ) }
+                    </div>
+                </section>
+            </div>
+            <button onClick={ handleLogin }>Login</button>
+        </>
     )
 }
 
