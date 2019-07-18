@@ -3,6 +3,7 @@ import logo from './spotify-logo.svg'
 import queryString from 'query-string'
 
 import Album from './components/Album'
+import Banner from './components/Banner'
 
 class App extends Component {
     constructor() {
@@ -14,35 +15,19 @@ class App extends Component {
         }
     }
 
+    handleSelectedId = selectedId => () => {
+        this.setState({ selectedId })
+    }
+
     renderAlbum = (src, alt, tracks) => {
         return (
             <div>
-                <img
+                <Banner
                     src={ src }
                     alt={ alt }
-                    width='300'
-                    height='300'
-                    style={ {
-                        margin: '15px'
-                    } }
                 />
                 <Album tracks={ tracks } />
             </div>
-        )
-    }
-
-    renderImg = (src, alt, id) => {
-        return (
-            <img
-                onClick={ () => this.setState({ selectedId: id }) }
-                src={ src }
-                alt={ alt }
-                width='300'
-                height='300'
-                style={ {
-                    margin: '15px'
-                } }
-            />
         )
     }
 
@@ -143,24 +128,39 @@ class App extends Component {
                         flexWrap: 'wrap',
                         justifyContent: 'center'
                     } }>
-
                     { this.state.selectedId === ''
-                        ? this.state.serverData.albums
-                            ? this.state.serverData.albums.map(res => {
+                        ? this.state.serverData.albums ? (
+                            this.state.serverData.albums.map(res => {
                                 if (res.album) {
-                                    return this.renderImg(res.album.images[0].url, res.album.name, res.album.id)
+                                    return (
+                                        <Banner
+                                            src={ res.album.images[0].url }
+                                            alt={ res.album.name }
+                                            key={ res.album.id }
+                                            onClick={ this.handleSelectedId(res.album.id) }
+                                        />
+                                    )
                                 } else {
-                                    return this.renderImg(res.images[0].url, res.name, res.id)
+                                    return (
+                                        <Banner
+                                            src={ res.images[0].url }
+                                            alt={ res.name }
+                                            key={ res.id }
+                                            onClick={ this.handleSelectedId(res.id) }
+                                        />
+                                    )
                                 }
                             }
-                            ) : <h1>Nada</h1>
+                            )) : <h1>Loading...</h1>
                         : (
                             this.state.serverData.album && (
-                                this.renderAlbum(
-                                    this.state.serverData.album.images[0].url,
-                                    this.state.serverData.album.name,
-                                    this.state.serverData.album.tracks.items
-                                )
+                                <div>
+                                    <Banner
+                                        src={ this.state.serverData.album.images[0].url }
+                                        alt={ this.state.serverData.album.name }
+                                    />
+                                    <Album tracks={ this.state.serverData.album.tracks.items } />
+                                </div>
                             )
                         ) }
                 </section>
