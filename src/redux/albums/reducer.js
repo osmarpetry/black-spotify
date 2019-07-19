@@ -10,11 +10,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
     const { type, data } = action
+
     switch (type) {
     case GET_ALBUMS:
         return {
             ...state,
-            albums: state.albums.concat(data),
+            albums: data,
             isAlbumsLoaded: true,
             albumsLoadedAt: new Date()
         }
