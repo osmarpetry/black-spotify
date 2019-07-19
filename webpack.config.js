@@ -41,25 +41,23 @@ module.exports = (env, arg) => {
             filename: './index.html',
             favicon: './public/favicon.ico'
         }),
-        new GenerateSW({
-            swDest: 'sw.js',
-            clientsClaim: true,
-            skipWaiting: true
-        }),
         new webpack.EnvironmentPlugin({
             BLACK_SPOTIFY_ENV: arg.mode
         })
     ]
 
     if (arg.mode !== 'development') {
-        webpackPlugins.push(
-            new SentryCliPlugin({
-                include: path.join(__dirname, 'dist'),
-                ignore: ['node_modules', 'webpack.*.js'],
-                release: packageFile.version,
-                configFile: 'sentry.properties'
-            })
-        )
+        webpackPlugins.concat([new SentryCliPlugin({
+            include: path.join(__dirname, 'dist'),
+            ignore: ['node_modules', 'webpack.*.js'],
+            release: packageFile.version,
+            configFile: 'sentry.properties'
+        }),
+        new GenerateSW({
+            swDest: 'sw.js',
+            clientsClaim: true,
+            skipWaiting: true
+        })])
     }
 
     return {

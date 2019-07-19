@@ -34,11 +34,23 @@ const App = () => {
                 '&type=album&market=US&limit=10&offset=10', {
                     headers: { 'Authorization': 'Bearer ' + accessToken }
                 })
-                .then(res => res.json())
-                .then(data => setServerData({
-                    albums: data.albums.items
-                }))
-
+                .then(res => {
+                    return res.json()
+                })
+                .then(data => {
+                    if (data.error) {
+                        console.log(data.error)
+                        throw data.error
+                    }
+                    setServerData({
+                        albums: data.albums.items || []
+                    })
+                })
+                .catch(err => {
+                    if (err.message === 'Invalid access token') {
+                        handleLogin()
+                    }
+                })
         }
     }, [searchText])
 
@@ -51,9 +63,17 @@ const App = () => {
                 })
                 .then(res => res.json())
                 .then(data => {
+                    if (data.error) {
+                        throw data.error
+                    }
                     setServerData({
                         album: data
                     })
+                })
+                .catch(err => {
+                    if (err.message === 'Invalid access token') {
+                        handleLogin()
+                    }
                 })
         }
     }, [selectedId])
