@@ -75,8 +75,8 @@ const App = () => {
                         height='70'
                     />
                 </a>
+                <button onClick={ handleLogin }>Login</button>
             </header>
-            <button onClick={ handleLogin }>Login</button>
             <section
                 style={ {
                     display: 'grid',
