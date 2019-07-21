@@ -9,16 +9,21 @@ const AlbumTrackLine = styled.div`
 
 const AlbumTracks = props => {
     const [playingId, setPlayingId] = useState('')
+    const [isPlaying, setIsPlaying] = useState(false)
 
     const stopAudio = id => {
         document.getElementById(id).pause()
         document.getElementById(id).currentTime = 0
+        setIsPlaying(false)
     }
 
     const handleAudio = trackId => () => {
         playingId !== '' && stopAudio(playingId)
-        document.getElementById(trackId).play()
-        setPlayingId(trackId)
+        if(trackId !== playingId || !isPlaying) {
+            document.getElementById(trackId).play()
+            setPlayingId(trackId)
+            setIsPlaying(true)
+        }
     }
 
     return (
