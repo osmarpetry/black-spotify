@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -7,30 +7,20 @@ import { getAlbums } from '../redux/albums/actions'
 import AlbumBanner from './AlbumBanner'
 
 const Albums = props => {
-    const { albums, isAlbumsLoaded, searchText } = props
-    const [selectedId, setSelectedId] = useState('')
-    const serverData = { albums: [] }
+    const { albums = [], isAlbumsLoaded, searchText = '' } = props
 
-    const handleSelectedId = selectedId => () => {
-        setSelectedId(selectedId)
+    const onSelectId = selectedId => () => {
+        props.onSelectId(selectedId)
     }
 
     useEffect(() => {
-        if(searchText !== '') {
+        if (searchText !== '') {
             props.getAlbums(searchText)
         }
     }, [searchText])
 
-    if(searchText === '') {
-        return <h1>Busque algo amigão</h1>
-    }
-
-    if(!isAlbumsLoaded) {
+    if (!isAlbumsLoaded) {
         return <h1>Loading...</h1>
-    }
-
-    if(albums.length === 0) {
-        return <h1>Nada encontrado com "{ searchText }"</h1>
     }
 
     return (
@@ -39,7 +29,8 @@ const Albums = props => {
                 src={ res.images[0].url }
                 alt={ res.name }
                 key={ res.id }
-                onClick={ handleSelectedId(res.id) }
+                id={ res.id }
+                onClick={ onSelectId(res.id) }
             />
         ))
     )

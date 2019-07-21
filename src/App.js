@@ -1,4 +1,8 @@
 import React, { useState } from 'react'
+import { Link, BrowserRouter as Router } from 'react-router-dom'
+
+import queryString from 'query-string'
+
 import logo from './spotify-logo.svg'
 
 import { Provider } from 'react-redux'
@@ -8,11 +12,15 @@ import { load, save } from 'redux-localstorage-simple'
 
 import Albums from './components/Albums'
 import Search from './components/Search'
+import AlbumDetails from './components/AlbumDetails'
 
 import rootReducer from './rootReducer'
 
 const App = () => {
     const [searchText, setSearchText] = useState('')
+    const [selectId, setSelectId] = useState('')
+
+    const accessToken = queryString.parse(window.location.search).access_token
 
     const middleware = [thunk]
 
@@ -22,67 +30,61 @@ const App = () => {
     )
 
     const handelSearch = event => {
-        setSearchText(event.target.value)
+        setSearchText(event)
+    }
+
+    const handleSelectId = id => {
+        setSelectId(id)
     }
 
     const handleLogin = () => {
         window.location = 'https://black-spotify.herokuapp.com/login'
     }
 
-    // this.props.getAlbum(selectedId)
-    /*
-     * fetch(
-     * 'https://api.spotify.com/v1/albums/' +
-     * selectedId, {
-     * headers: { 'Authorization': 'Bearer ' + accessToken }
-     * })
-     * .then(res => res.json())
-     * .then(data => {
-     * setServerData({
-     * album: data
-     * })
-     * })
-     */
-
     return (
-        <Provider store={ store }>
-            <div className='App' style={ {
-                display: 'grid',
-                gridTemplateColumns: 'auto 1fr'
-            } }>
-                <header className='App-header' style={ {
-                    marginTop: '20px'
+        <Router>
+            <Provider store={ store }>
+                <div className='App' style={ {
+                    display: 'grid',
+                    gridTemplateColumns: 'auto 1fr'
                 } }>
-                    <a href={ window.location.href }>
-                        <img
-                            src={ logo }
-                            name='App-logo'
-                            alt='logo'
-                            width='200'
-                            height='70'
-                        />
-                    </a>
-                </header>
-                <section
-                    style={ {
-                        display: 'grid',
-                        gridTemplateColumns: 'auto 1ft auto'
+                    <header className='App-header' style={ {
+                        marginTop: '20px'
                     } }>
-                    <Search
-                        onSearch={ handelSearch }
-                        searchText={ searchText }
-                    />
-                    <div style={ {
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        placeContent: 'center'
-                    } }>
-                        <Albums searchText={ searchText } />
-                    </div>
-                </section>
-            </div>
-            <button onClick={ handleLogin }>Login</button>
-        </Provider>
+                        <Link to={ `/?access_token=${accessToken}` }>
+                            <img
+                                src={ logo }
+                                name='App-logo'
+                                alt='logo'
+                                width='200'
+                                height='70'
+                            />
+                        </Link>
+                    </header>
+                    <section
+                        style={ {
+                            display: 'grid',
+                            gridTemplateColumns: 'auto 1ft auto'
+                        } }>
+                        <Search onSearch={ handelSearch } />
+                        <div style={ {
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            placeContent: 'center'
+                        } }>
+                            <Albums
+                                searchText={ searchText }
+                                onSelectId={ handleSelectId }
+                            />
+                            <AlbumDetails
+                                selectId={ selectId }
+                            />
+                        </div>
+                    </section>
+                </div>
+                <button onClick={ handleLogin }>Login</button>
+            </Provider>
+        </Router>
     )
 }
 

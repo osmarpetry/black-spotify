@@ -1,12 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { getAlbums } from '../redux/albums/actions'
 
 const Search = props => {
+    const [searchText, setSearchText] = useState('')
+
+    const onSearch = event => {
+        setSearchText(event.target.value)
+    }
+
+    useEffect(() => {
+        if(searchText.trim() !== '') {
+            props.onSearch(searchText)
+        }
+    }, [searchText])
+
     return (
         <section
             style={ {
                 display: 'flex',
-                flexWrap: 'wrap',
-                placeContent: 'center'
+                flexWrap: 'wrap'
             } }>
             <h3 style={ {
                 flex: '1 0 100%'
@@ -19,14 +34,23 @@ const Search = props => {
                     width: '400px'
                 } }
                 placeholder='Comece a escrever...'
-                vaue={ props.searchText }
-                onChange={ props.onSearch }
+                onChange={ onSearch }
             />
-            { props.searchText.length > 0 && (
-                <h3>Resultados encontradados para "{ props.searchText }"</h3>
+            { searchText.length > 0 && (
+                <h3>Resultados encontradados para "{ searchText.trim() }"</h3>
             ) }
         </section>
     )
 }
 
-export default Search
+const mapDispatchProps = dispatch =>
+    bindActionCreators(
+        {
+            getAlbums
+        },
+        dispatch
+    )
+
+export default connect(
+    mapDispatchProps
+)(Search)

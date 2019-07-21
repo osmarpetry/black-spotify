@@ -2,7 +2,6 @@ import React from 'react'
 
 const AlbumBanner = props =>
     <img
-        onClick={ props.onClick }
         src={ props.src }
         alt={ props.alt }
         width='300'
@@ -10,6 +9,7 @@ const AlbumBanner = props =>
         style={ {
             margin: '15px'
         } }
+        onClick={ props.onClick }
     />
 
 export default AlbumBanner
