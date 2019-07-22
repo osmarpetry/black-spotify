@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlayCircle } from '@fortawesome/free-solid-svg-icons'
+
 const AlbumTrackLine = styled.div`
     display:grid;
     grid-template-columns: auto auto 1fr auto;
@@ -41,8 +44,11 @@ const AlbumTracks = props => {
                     </audio>
                     <AlbumTrackLine>
                         <button
+                            className='btn'
                             onClick={ handleAudio(track.id) }>
-                            Play preview!
+                            <FontAwesomeIcon style={ { paddingRight: '5px' } }
+                                icon={ faPlayCircle }
+                            />
                         </button>
                         <p>{ track.track_number }.</p>
                         <p>{ track.name }</p>
