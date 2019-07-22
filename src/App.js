@@ -26,7 +26,7 @@ const StyledApp = stlyed.div`
     display: grid;
     grid-template-columns: auto 1fr 5%;
 
-    @media(max-width: 815px) {
+    @media(max-width: 1000px) {
         grid-template-columns: 1fr;
         .App-logo {
             display: none;
@@ -88,8 +88,10 @@ const App = () => {
                                 <Search onSearch={ handelSearch } />
                             ) : (
                                 <button
-                                    style={ { textAlign: 'start' } }
-                                    className='btn'
+                                    style={ {
+                                        textAlign: 'start',
+                                        padding: '1em'
+                                    } }
                                     onClick={ handleSelectId }>
                                     <FontAwesomeIcon style={ { paddingRight: '5px' } }
                                         icon={ faAngleLeft }

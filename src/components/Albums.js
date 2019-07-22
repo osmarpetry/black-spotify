@@ -7,6 +7,30 @@ import { bindActionCreators } from 'redux'
 import { getAlbums } from '../redux/albums/actions'
 
 import AlbumBanner from './AlbumBanner'
+import AlbumBannerDetails from './AlbumBannerDetails'
+
+const StyledAlbum = styled.div`
+    display: flex;
+    flex-flow: column;
+    flex-direction: center;
+    width: 20%;
+
+
+    @media(max-width: 1333px) {
+        width: 33.33%;
+    }
+    @media(max-width: 1073px) {
+        width: 33.33%;
+
+    }
+    @media(max-width: 815px) {
+        width: 50%;
+    }
+    @media(max-width: 555px) {
+        width: 100%;
+
+    }
+`
 
 const StyledAlbums = styled.div`
     display: flex;
@@ -63,13 +87,19 @@ const Albums = props => {
     return (
         <StyledAlbums>
             { albums.map(res => (
-                <AlbumBanner
-                    src={ res.images[0].url }
-                    alt={ res.name }
-                    key={ res.id }
-                    id={ res.id }
-                    onClick={ onSelectId(res.id) }
-                />
+                <StyledAlbum key={ res.id }>
+                    <AlbumBanner
+                        src={ res.images[0].url }
+                        alt={ res.name }
+                        key={ res.id }
+                        id={ res.id }
+                        onClick={ onSelectId(res.id) }
+                    />
+                    <AlbumBannerDetails
+                        albumName={ res.name }
+                        albumArtists={ res.artists }
+                    />
+                </StyledAlbum>
             )) }
         </StyledAlbums>
     )

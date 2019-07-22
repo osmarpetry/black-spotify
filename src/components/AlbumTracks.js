@@ -52,7 +52,6 @@ const AlbumTracks = props => {
                     </audio>
                     <AlbumTrackLine>
                         <button
-                            className='btn'
                             onClick={ handleAudio(track.id) }>
                             <FontAwesomeIcon style={ { paddingRight: '5px' } }
                                 icon={ faPlayCircle }
