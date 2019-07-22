@@ -66,3 +66,12 @@ Pull Request must be done by comparing the branch on your fork to my master bran
 ![Branch comparison from master to the fork](https://paper-attachments.dropbox.com/s_92657E8B9CBF146FAAFF1F5A42F8C9DCF1F011A1782383B18B4CB42984430344_1562858184741_pr-to-my-branch.png)
 
 
+### Where I need help
+Some things is not already done because need studies, to be done right. These things are:
+
+- Get Spotify token on background of Cucumber to the E2E with Cypress tool
+- Redux is always returning the last request you done, not the current you asked
+- Must be more responsive. It already is, but can be done better
+- Animations. Animations alwayis is welcome
+- Bug report button on the bottom
+- Staging and Homologation already exist, but is not working if CI/CD. Using the same project of Firebase if different domains
