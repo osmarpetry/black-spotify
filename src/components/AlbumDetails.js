@@ -21,7 +21,7 @@ const AlbumDetails = props => {
         }
     }, [props.selectId])
 
-    if (!props.album || props.selectId === '') {
+    if (!props.album.id || props.selectId === '') {
         return <h1>Has no album Album on Album Details</h1>
     } else {
         return (
