@@ -99,7 +99,6 @@
         ],
         "valid-jsdoc": "error",
         "object-curly-spacing": ["error", "always"],
-        "react/jsx-no-bind": "error",
         "react/jsx-closing-bracket-location": [
             1,
             {

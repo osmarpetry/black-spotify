@@ -93,7 +93,8 @@ const App = () => {
                                         padding: '1em'
                                     } }
                                     onClick={ handleSelectId }>
-                                    <FontAwesomeIcon style={ { paddingRight: '5px' } }
+                                    <FontAwesomeIcon
+                                        style={ { paddingRight: '5px' } }
                                         icon={ faAngleLeft }
                                     />
                                         Voltar

@@ -50,16 +50,19 @@ const StyledAlbums = styled.div`
             flex-basis: 33.33%;
         }
     }
+
     @media(max-width: 1073px) {
         .grid-item {
             flex-basis: 33.33%;
         }
     }
+
     @media(max-width: 815px) {
         .grid-item {
             flex-basis: 50%;
         }
     }
+
     @media(max-width: 555px) {
         .grid-item {
             flex-basis: 100%;
