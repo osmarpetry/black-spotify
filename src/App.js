@@ -10,6 +10,9 @@ import { applyMiddleware, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import { load, save } from 'redux-localstorage-simple'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
+
 import Albums from './components/Albums'
 import Search from './components/Search'
 import AlbumDetails from './components/AlbumDetails'
@@ -34,7 +37,12 @@ const App = () => {
     }
 
     const handleSelectId = id => {
-        setSelectId(id)
+        if(typeof id === 'string') {
+            setSelectId(id)
+        } else {
+            console.log('ué')
+            setSelectId('')
+        }
     }
 
     const handleLogin = () => {
@@ -51,7 +59,9 @@ const App = () => {
                     <header className='App-header' style={ {
                         marginTop: '20px'
                     } }>
-                        <Link to={ `/?access_token=${accessToken}` }>
+                        <Link
+                            to={ `/?access_token=${accessToken}` }
+                            onClick={ handleSelectId }>
                             <img
                                 src={ logo }
                                 name='App-logo'
@@ -66,19 +76,34 @@ const App = () => {
                             display: 'grid',
                             gridTemplateColumns: 'auto 1ft auto'
                         } }>
-                        <Search onSearch={ handelSearch } />
+                        { selectId === '' ? (
+                            <Search onSearch={ handelSearch } />
+                        ) : (
+                            <button className='btn'>
+                                <FontAwesomeIcon style={ { paddingRight: '5px' } }
+                                    icon={ faAngleLeft }
+                                />
+                                    Voltar
+                            </button>
+                        ) }
                         <div style={ {
                             display: 'flex',
                             flexWrap: 'wrap',
                             placeContent: 'center'
                         } }>
-                            <Albums
-                                searchText={ searchText }
-                                onSelectId={ handleSelectId }
-                            />
-                            <AlbumDetails
-                                selectId={ selectId }
-                            />
+                            { selectId === '' ?
+                                (
+                                    <Albums
+                                        searchText={ searchText }
+                                        onSelectId={ handleSelectId }
+                                    />
+                                )
+                                : (
+                                    <AlbumDetails
+                                        selectId={ selectId }
+                                    />
+                                )
+                            }
                         </div>
                     </section>
                 </div>
