@@ -16,6 +16,10 @@ export const getAlbums = searchText =>
                     headers: { 'Authorization': 'Bearer ' + accessToken }
                 })
 
+            if(res.status === 401) {
+                window.location = 'https://black-spotify.herokuapp.com/login'
+            }
+
             const data = await res.json()
 
             return dispatch({
@@ -36,6 +40,10 @@ export const getAlbum = id =>
             'https://api.spotify.com/v1/albums/' + id, {
                 headers: { 'Authorization': 'Bearer ' + accessToken }
             })
+
+        if(res.status === 401) {
+            window.location = 'https://black-spotify.herokuapp.com/login'
+        }
 
         const data = await res.json()
 

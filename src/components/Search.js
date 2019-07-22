@@ -18,28 +18,22 @@ const Search = props => {
     }, [searchText])
 
     return (
-        <section
+        <div
             style={ {
-                display: 'flex',
-                flexWrap: 'wrap'
+                display: 'grid',
+                gridTemplateColumns: '1fr'
             } }>
-            <h3 style={ {
-                flex: '1 0 100%'
-            } }>
+            <h3>
                 Busque por artistas, álbuns ou músicas
             </h3>
             <input
-                style={ {
-                    flex: '1 0 100%',
-                    width: '400px'
-                } }
                 placeholder='Comece a escrever...'
                 onChange={ onSearch }
             />
             { searchText.length > 0 && (
                 <h3>Resultados encontradados para "{ searchText.trim() }"</h3>
             ) }
-        </section>
+        </div>
     )
 }
 

@@ -39,7 +39,7 @@ const AlbumTracks = props => {
 
     return (
         props.tracks.map(track => (
-            <ul key={ track.id }>
+            <ul style={ { margin: 0, padding: 0 } } key={ track.id }>
                 <li>
                     <audio
                         id={ track.id }

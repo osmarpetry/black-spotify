@@ -5,13 +5,24 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getAlbum } from '../redux/albums/actions'
 
+import AlbumBannerDetails from './AlbumBannerDetails'
 import AlbumTracks from './AlbumTracks'
 import AlbumBanner from './AlbumBanner'
 
 const AlbumDetailsStyled = styled.div`
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 20% 70%;
     grid-gap: 20px;
+
+    @media(max-width: 815px) {
+        grid-template-columns: 1fr;
+    }
+`
+
+const StyledAlbumDetails = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
 
 const AlbumDetails = props => {
@@ -24,14 +35,21 @@ const AlbumDetails = props => {
     if (!props.album.id || props.selectId === '') {
         return <h1>Has no album Album on Album Details</h1>
     } else {
+
         return (
             <AlbumDetailsStyled>
-                <AlbumBanner
-                    src={
-                        props.album.images[0].url
-                    }
-                    alt={ props.album.name }
-                />
+                <StyledAlbumDetails>
+                    <AlbumBanner
+                        src={
+                            props.album.images[0].url
+                        }
+                        alt={ props.album.name }
+                    />
+                    <AlbumBannerDetails
+                        albumName={ props.album.name }
+                        albumArtists={ props.album.artists }
+                    />
+                </StyledAlbumDetails>
                 <div>
                     <AlbumTracks
                         tracks={
