@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
+import { m, ms, s } from 'time-convert'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons'
 
@@ -29,6 +31,12 @@ const AlbumTracks = props => {
         }
     }
 
+    const msToHms = durationMs => (
+        ms.to(m,s)(durationMs)
+            .map(n => n < 10? '0'+n : n.toString())
+            .join(':')
+    )
+
     return (
         props.tracks.map(track => (
             <ul key={ track.id }>
@@ -54,7 +62,7 @@ const AlbumTracks = props => {
                         <p>{ track.name }</p>
                         <p style={ {
                             gridColumn: 4
-                        } }>{ track.duration_ms / 60000 }</p>
+                        } }>{ msToHms(track.duration_ms) }</p>
                     </AlbumTrackLine>
                 </li>
             </ul>

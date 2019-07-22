@@ -79,7 +79,7 @@ const App = () => {
                         { selectId === '' ? (
                             <Search onSearch={ handelSearch } />
                         ) : (
-                            <button className='btn'>
+                            <button className='btn' onClick={ handleSelectId }>
                                 <FontAwesomeIcon style={ { paddingRight: '5px' } }
                                     icon={ faAngleLeft }
                                 />
