@@ -83,8 +83,8 @@ const Albums = props => {
         }
     }, [searchText])
 
-    if (!isAlbumsLoaded) {
-        return <h1>Loading...</h1>
+    if (!isAlbumsLoaded || !albums.length) {
+        return <h1>Nenhum álbum carregado ainda...</h1>
     }
 
     return (
