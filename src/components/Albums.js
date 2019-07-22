@@ -86,18 +86,18 @@ const Albums = props => {
 
     return (
         <StyledAlbums>
-            { albums.map(res => (
-                <StyledAlbum key={ res.id }>
+            { albums.map((album, key) => (
+                <StyledAlbum key={ key }>
                     <AlbumBanner
-                        src={ res.images[0].url }
-                        alt={ res.name }
-                        key={ res.id }
-                        id={ res.id }
-                        onClick={ onSelectId(res.id) }
+                        src={ album.images[0].url }
+                        alt={ album.name }
+                        key={ key }
+                        id={ album.id }
+                        onClick={ onSelectId(album.id) }
                     />
                     <AlbumBannerDetails
-                        albumName={ res.name }
-                        albumArtists={ res.artists }
+                        albumName={ album.name }
+                        albumArtists={ album.artists }
                     />
                 </StyledAlbum>
             )) }

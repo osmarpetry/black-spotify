@@ -4,8 +4,8 @@ const AlbumBannerDetails = props => (
     <div style={ { textAlign: 'center' } }>
         <h4>{ props.albumName } </h4>
         <p>
-            { props.albumArtists.map(artist => (
-                <Fragment key={ artist.id }>
+            { props.albumArtists.map((artist, key) => (
+                <Fragment key={ key }>
                     <a
                         target='_blank'
                         rel='noopener noreferrer'

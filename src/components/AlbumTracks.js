@@ -38,11 +38,11 @@ const AlbumTracks = props => {
     )
 
     return (
-        props.tracks.map(track => (
-            <ul style={ { margin: 0, padding: 0 } } key={ track.id }>
+        props.tracks.map((track, key) => (
+            <ul style={ { margin: 0, padding: 0 } } key={ key }>
                 <li>
                     <audio
-                        id={ track.id }
+                        id={ key }
                         controls='controls'
                         style={ { display: 'none' } }>
                         <source
@@ -52,7 +52,7 @@ const AlbumTracks = props => {
                     </audio>
                     <AlbumTrackLine>
                         <button
-                            onClick={ handleAudio(track.id) }>
+                            onClick={ handleAudio(key) }>
                             <FontAwesomeIcon style={ { paddingRight: '5px' } }
                                 icon={ faPlayCircle }
                             />
