@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const { GenerateSW } = require('workbox-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const SentryCliPlugin = require('@sentry/webpack-plugin')
 const WebpackPwaManifest = require('webpack-pwa-manifest')
 const packageFile = require('./package.json')
@@ -105,7 +105,7 @@ module.exports = (env, arg) => {
         },
         plugins: webpackPlugins,
         optimization: {
-            minimizer: [new UglifyJsPlugin()],
+            minimizer: [new TerserPlugin()],
             runtimeChunk: 'single',
             splitChunks: {
                 chunks: 'all',
