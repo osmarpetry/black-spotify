@@ -1,3 +1,4 @@
+require('dotenv').config()
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
@@ -42,7 +43,9 @@ module.exports = (env, arg) => {
             favicon: './public/favicon.ico'
         }),
         new webpack.EnvironmentPlugin({
-            BLACK_SPOTIFY_ENV: arg.mode
+            BLACK_SPOTIFY_ENV: arg.mode,
+            SPOTIFY_CLIENT_ID: '',
+            SPOTIFY_REDIRECT_URI: ''
         })
     ]
 

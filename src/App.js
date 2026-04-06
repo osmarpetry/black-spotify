@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, BrowserRouter as Router } from 'react-router-dom'
 
 import stlyed from 'styled-components'
-
-import queryString from 'query-string'
 
 import logo from './spotify-logo.svg'
 
@@ -21,6 +19,7 @@ import Search from './components/Search'
 import AlbumDetails from './components/AlbumDetails'
 
 import rootReducer from './rootReducer'
+import { exchangeCodeForToken, getAccessToken } from './auth'
 
 const StyledApp = stlyed.div`
     display: grid;
@@ -34,18 +33,37 @@ const StyledApp = stlyed.div`
     }
 `
 
+const middleware = [thunk]
+
+const store = createStore(
+    rootReducer, load(),
+    applyMiddleware(...middleware, save())
+)
+
 const App = () => {
     const [searchText, setSearchText] = useState('')
     const [selectId, setSelectId] = useState('')
+    const [authenticated, setAuthenticated] = useState(false)
+    const [loading, setLoading] = useState(true)
 
-    const accessToken = queryString.parse(window.location.search).access_token
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search)
+        const code = params.get('code')
 
-    const middleware = [thunk]
-
-    const store = createStore(
-        rootReducer, load(),
-        applyMiddleware(...middleware, save())
-    )
+        if (code) {
+            exchangeCodeForToken(code)
+                .then(() => {
+                    window.history.replaceState({}, document.title, '/')
+                    setAuthenticated(true)
+                })
+                .catch(() => setAuthenticated(false))
+                .finally(() => setLoading(false))
+        } else {
+            const token = getAccessToken()
+            setAuthenticated(!!token)
+            setLoading(false)
+        }
+    }, [])
 
     const handelSearch = event => {
         setSearchText(event)
@@ -59,16 +77,20 @@ const App = () => {
         }
     }
 
+    if (loading) {
+        return null
+    }
+
     return (
         <Router>
             <Provider store={ store }>
-                { accessToken ? (
+                { authenticated ? (
                     <StyledApp>
                         <header className='App-header' style={ {
                             marginTop: '20px'
                         } }>
                             <Link
-                                to={ `/?access_token=${accessToken}` }
+                                to='/'
                                 onClick={ handleSelectId }>
                                 <img
                                     src={ logo }

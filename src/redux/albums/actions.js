@@ -1,24 +1,41 @@
-import queryString from 'query-string'
+import { getAccessToken, refreshAccessToken, redirectToSpotifyAuth } from '../../auth'
 
 export const GET_ALBUMS = 'GET_ALBUMS'
 export const GET_ALBUM = 'GET_ALBUM'
 export const RESET_ALBUM = 'RESET_ALBUM'
 
-const accessToken = queryString.parse(window.location.search).access_token
+async function fetchWithAuth(url) {
+    let token = getAccessToken()
+    let res = await fetch(url, {
+        headers: { 'Authorization': 'Bearer ' + token }
+    })
+
+    if (res.status === 401) {
+        const refreshed = await refreshAccessToken()
+        if (refreshed) {
+            token = getAccessToken()
+            res = await fetch(url, {
+                headers: { 'Authorization': 'Bearer ' + token }
+            })
+        } else {
+            redirectToSpotifyAuth()
+            return null
+        }
+    }
+
+    return res
+}
 
 export const getAlbums = searchText =>
     async function (dispatch) {
-        if(searchText !== '') {
-            const res = await fetch(
+        if (searchText !== '') {
+            const res = await fetchWithAuth(
                 'https://api.spotify.com/v1/search?q=' +
-            searchText +
-            '&type=album&market=US&limit=10&offset=10', {
-                    headers: { 'Authorization': 'Bearer ' + accessToken }
-                })
+                searchText +
+                '&type=album&market=US&limit=10&offset=10'
+            )
 
-            if(res.status === 401) {
-                window.location = 'https://black-spotify.herokuapp.com/login'
-            }
+            if (!res) return
 
             const data = await res.json()
 
@@ -36,14 +53,9 @@ export const getAlbums = searchText =>
 
 export const getAlbum = id =>
     async function (dispatch) {
-        const res = await fetch(
-            'https://api.spotify.com/v1/albums/' + id, {
-                headers: { 'Authorization': 'Bearer ' + accessToken }
-            })
+        const res = await fetchWithAuth('https://api.spotify.com/v1/albums/' + id)
 
-        if(res.status === 401) {
-            window.location = 'https://black-spotify.herokuapp.com/login'
-        }
+        if (!res) return
 
         const data = await res.json()
 

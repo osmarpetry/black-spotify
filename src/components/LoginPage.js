@@ -2,6 +2,8 @@ import React from 'react'
 
 import styled from 'styled-components'
 
+import { redirectToSpotifyAuth } from '../auth'
+
 const StyledLoginPage = styled.main`
     display: flex;
     justify-content: center;
@@ -14,10 +16,6 @@ const LoginButton = styled.button`
     color: #999999;
 `
 
-const handleLogin = () => {
-    window.location = 'https://black-spotify.herokuapp.com/login'
-}
-
 const LoginPage = () => (
     <StyledLoginPage>
         <LoginButton
@@ -25,7 +23,7 @@ const LoginPage = () => (
                 position: 'absolute',
                 top: '50%'
             } }
-            onClick={ handleLogin }>
+            onClick={ redirectToSpotifyAuth }>
             Realizar Login
         </LoginButton>
     </StyledLoginPage>

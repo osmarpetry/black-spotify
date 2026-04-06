@@ -1,0 +1,43 @@
+{
+  "icons": [
+    {
+      "src": "/icon_512x512.b9e0c6a5d122e5f06d5cf07fb929541d.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon_384x384.d095c9b2722e82986ba913f41932a191.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon_256x256.cb99d99d049adeb79c7a5bdab43e6dab.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon_192x192.07e262a7b2145717b9b946d9b35220b8.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon_128x128.a52bee99e3bc569b3a0feb7ce3aa4b83.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon_96x96.b64c5fd9346d4ec6be92c1c30ebf13ad.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    }
+  ],
+  "name": "Black Spotify",
+  "short_name": "Black Spotify",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": "/",
+  "description": "Black Spotify - Your black Spotify",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "scope": "/"
+}
