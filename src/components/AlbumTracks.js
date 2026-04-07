@@ -61,6 +61,28 @@ const AlbumTracks = props => {
         }
     }
 
+    const getPreviewTooltip = track => {
+        if (track.preview_url) return 'Play 30 second preview'
+
+        if (track.restrictions && track.restrictions.reason === 'market') {
+            return 'Preview unavailable in this market'
+        }
+
+        if (track.restrictions && track.restrictions.reason === 'product') {
+            return 'Preview unavailable for this Spotify account'
+        }
+
+        if (track.restrictions && track.restrictions.reason === 'explicit') {
+            return 'Preview unavailable because explicit playback is restricted'
+        }
+
+        if (track.is_playable === false) {
+            return 'Track is not playable from Spotify'
+        }
+
+        return 'Preview unavailable from Spotify'
+    }
+
     const msToHms = durationMs =>
         ms
             .to(
@@ -89,21 +111,34 @@ const AlbumTracks = props => {
                         </audio>
                     )}
                     <AlbumTrackLine>
-                        <button
-                            type='button'
-                            onClick={handleAudio(audioId, track.preview_url)}
-                            disabled={!track.preview_url}
+                        <span
+                            title={getPreviewTooltip(track)}
                             style={{
-                                opacity: track.preview_url ? 1 : 0.3,
+                                display: 'inline-block',
                                 cursor: track.preview_url
                                     ? 'pointer'
                                     : 'not-allowed'
                             }}>
-                            <FontAwesomeIcon
-                                style={{ paddingRight: '5px' }}
-                                icon={faPlayCircle}
-                            />
-                        </button>
+                            <button
+                                type='button'
+                                onClick={handleAudio(
+                                    audioId,
+                                    track.preview_url
+                                )}
+                                disabled={!track.preview_url}
+                                aria-label={getPreviewTooltip(track)}
+                                style={{
+                                    opacity: track.preview_url ? 1 : 0.3,
+                                    cursor: track.preview_url
+                                        ? 'pointer'
+                                        : 'not-allowed'
+                                }}>
+                                <FontAwesomeIcon
+                                    style={{ paddingRight: '5px' }}
+                                    icon={faPlayCircle}
+                                />
+                            </button>
+                        </span>
                         <p>{track.track_number}.</p>
                         <p>{track.name}</p>
                         <p
