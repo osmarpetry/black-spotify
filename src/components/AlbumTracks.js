@@ -25,17 +25,17 @@ const AlbumTracks = props => {
 
     const stopAudio = id => {
         const audio = getAudio(id)
-        if (!audio) return
+        if (!audio) {return}
 
         audio.pause()
         audio.currentTime = 0
     }
 
     const handleAudio = (trackId, previewUrl) => async () => {
-        if (!previewUrl) return
+        if (!previewUrl) {return}
 
         const audio = getAudio(trackId)
-        if (!audio) return
+        if (!audio) {return}
 
         const isSameTrack = playingId === trackId
 
@@ -43,6 +43,7 @@ const AlbumTracks = props => {
             stopAudio(trackId)
             setPlayingId(null)
             setIsPlaying(false)
+
             return
         }
 
@@ -62,7 +63,7 @@ const AlbumTracks = props => {
     }
 
     const getPreviewTooltip = track => {
-        if (track.preview_url) return 'Play 30 second preview'
+        if (track.preview_url) {return 'Play 30 second preview'}
 
         if (track.restrictions && track.restrictions.reason === 'market') {
             return 'Preview unavailable in this market'
@@ -96,56 +97,56 @@ const AlbumTracks = props => {
         const audioId = track.id || key
 
         return (
-            <ul style={{ margin: 0, padding: 0 }} key={audioId}>
+            <ul style={ { margin: 0, padding: 0 } } key={ audioId }>
                 <li>
-                    {track.preview_url && (
+                    { track.preview_url && (
                         <audio
-                            id={audioId}
+                            id={ audioId }
                             controls='controls'
-                            style={{ display: 'none' }}
-                            onEnded={() => {
+                            style={ { display: 'none' } }
+                            onEnded={ () => {
                                 setPlayingId(null)
                                 setIsPlaying(false)
-                            }}>
-                            <source src={track.preview_url} type='audio/mpeg' />
+                            } }>
+                            <source src={ track.preview_url } type='audio/mpeg' />
                         </audio>
-                    )}
+                    ) }
                     <AlbumTrackLine>
                         <span
-                            title={getPreviewTooltip(track)}
-                            style={{
+                            title={ getPreviewTooltip(track) }
+                            style={ {
                                 display: 'inline-block',
                                 cursor: track.preview_url
                                     ? 'pointer'
                                     : 'not-allowed'
-                            }}>
+                            } }>
                             <button
                                 type='button'
-                                onClick={handleAudio(
+                                onClick={ handleAudio(
                                     audioId,
                                     track.preview_url
-                                )}
-                                disabled={!track.preview_url}
-                                aria-label={getPreviewTooltip(track)}
-                                style={{
+                                ) }
+                                disabled={ !track.preview_url }
+                                aria-label={ getPreviewTooltip(track) }
+                                style={ {
                                     opacity: track.preview_url ? 1 : 0.3,
                                     cursor: track.preview_url
                                         ? 'pointer'
                                         : 'not-allowed'
-                                }}>
+                                } }>
                                 <FontAwesomeIcon
-                                    style={{ paddingRight: '5px' }}
-                                    icon={faPlayCircle}
+                                    style={ { paddingRight: '5px' } }
+                                    icon={ faPlayCircle }
                                 />
                             </button>
                         </span>
-                        <p>{track.track_number}.</p>
-                        <p>{track.name}</p>
+                        <p>{ track.track_number }.</p>
+                        <p>{ track.name }</p>
                         <p
-                            style={{
+                            style={ {
                                 gridColumn: 4
-                            }}>
-                            {msToHms(track.duration_ms)}
+                            } }>
+                            { msToHms(track.duration_ms) }
                         </p>
                     </AlbumTrackLine>
                 </li>

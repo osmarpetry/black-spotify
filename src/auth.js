@@ -7,9 +7,11 @@ const STORAGE_KEY_REFRESH = 'spotify_refresh_token'
 const STORAGE_KEY_EXPIRY = 'spotify_token_expiry'
 
 function generateRandomString(length = 64) {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'
+    const chars =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'
     const array = new Uint8Array(length)
     crypto.getRandomValues(array)
+
     return Array.from(array, byte => chars[byte % chars.length]).join('')
 }
 
@@ -17,6 +19,7 @@ async function generateCodeChallenge(verifier) {
     const encoder = new TextEncoder()
     const data = encoder.encode(verifier)
     const digest = await crypto.subtle.digest('SHA-256', data)
+
     return btoa(String.fromCharCode(...new Uint8Array(digest)))
         .replace(/\+/g, '-')
         .replace(/\//g, '_')
@@ -87,11 +90,13 @@ export async function refreshAccessToken() {
 
     if (!res.ok) {
         clearTokens()
+
         return false
     }
 
     const data = await res.json()
     storeTokens(data)
+
     return true
 }
 
@@ -100,6 +105,7 @@ export function getAccessToken() {
     if (Date.now() > expiry) {
         return null
     }
+
     return localStorage.getItem(STORAGE_KEY_TOKEN)
 }
 

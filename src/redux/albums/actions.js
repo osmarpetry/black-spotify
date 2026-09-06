@@ -1,7 +1,7 @@
 import {
     getAccessToken,
-    refreshAccessToken,
-    redirectToSpotifyAuth
+    redirectToSpotifyAuth,
+    refreshAccessToken
 } from '../../auth'
 
 export const GET_ALBUMS = 'GET_ALBUMS'
@@ -25,6 +25,7 @@ async function fetchWithAuth(url) {
             })
         } else {
             redirectToSpotifyAuth()
+
             return null
         }
     }
@@ -37,20 +38,20 @@ async function fetchTrackWithPreview(trackId, market = DEFAULT_MARKET) {
         'https://api.spotify.com/v1/tracks/' + trackId + '?market=' + market
     )
 
-    if (!res || !res.ok) return null
+    if (!res || !res.ok) {return null}
 
     return res.json()
 }
 
 async function hydrateAlbumTrackPreviews(album, market = DEFAULT_MARKET) {
-    if (!album || !album.tracks || !album.tracks.items) return album
+    if (!album || !album.tracks || !album.tracks.items) {return album}
 
     const hydratedItems = await Promise.all(
         album.tracks.items.map(async track => {
-            if (!track || !track.id) return track
+            if (!track || !track.id) {return track}
 
             const fullTrack = await fetchTrackWithPreview(track.id, market)
-            if (!fullTrack) return track
+            if (!fullTrack) {return track}
 
             return {
                 ...track,
@@ -80,7 +81,7 @@ export const getAlbums = searchText =>
                     '&type=album&market=US&limit=10&offset=10'
             )
 
-            if (!res) return
+            if (!res) {return}
 
             const data = await res.json()
 
@@ -105,7 +106,7 @@ export const getAlbum = id =>
                 DEFAULT_MARKET
         )
 
-        if (!res) return
+        if (!res) {return}
 
         const data = await res.json()
         const hydratedAlbum = await hydrateAlbumTrackPreviews(
