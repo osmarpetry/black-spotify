@@ -42,7 +42,7 @@
         "chai": "4.2.0",
         "compression-webpack-plugin": "12.0.0",
         "css-loader": "7.1.5",
-        "cypress": "5.3.0",
+        "cypress": "16.0.0",
         "cypress-cucumber-preprocessor": "3.0.0",
         "dotenv": "^17.4.1",
         "eslint": "7.10.0",
@@ -63,7 +63,7 @@
         "url-loader": "4.1.0",
         "webpack": "4.44.2",
         "webpack-cli": "3.3.12",
-        "webpack-dev-server": "3.11.0",
+        "webpack-dev-server": "6.0.0",
         "webpack-pwa-manifest": "4.2.0",
         "workbox-webpack-plugin": "5.1.4"
     },
