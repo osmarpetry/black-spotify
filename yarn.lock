@@ -8515,10 +8515,10 @@ react-dom@16.13.1:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
-react-infinite-scroll-component@5.1.0:
-  version "5.1.0"
-  resolved "https://registry.npmjs.org/react-infinite-scroll-component/-/react-infinite-scroll-component-5.1.0.tgz"
-  integrity sha512-ZQ7lYlLByil1ZVdvt57UJeBIj/tSOwKyds+B0LIm/xGmxzJJZwW/hYGKKs74sHO3LoIDwcq2ci6YXqrkWSalLQ==
+react-infinite-scroll-component@6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/react-infinite-scroll-component/-/react-infinite-scroll-component-6.1.1.tgz#081d0e13ef1d6b77079f344b4bf5f1d5e6d5e759"
+  integrity sha512-R8YoOyiNDynSWmfVme5LHslsKrP+/xcRUWR2ies8UgUab9dtyw5ECnMCVPPmnmjjF4MWQmfVdRwRWcWaDgeyMA==
   dependencies:
     throttle-debounce "^2.1.0"
 
