@@ -32,7 +32,7 @@
         "@babel/core": "7.11.6",
         "@babel/plugin-transform-runtime": "7.11.5",
         "@babel/preset-env": "7.11.5",
-        "@babel/preset-react": "7.10.4",
+        "@babel/preset-react": "7.29.7",
         "@cypress/webpack-preprocessor": "5.4.6",
         "@sentry/browser": "5.24.2",
         "@sentry/webpack-plugin": "1.13.0",
