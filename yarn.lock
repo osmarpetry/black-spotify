@@ -2295,15 +2295,25 @@
   resolved "https://registry.yarnpkg.com/@sentry/babel-plugin-component-annotate/-/babel-plugin-component-annotate-4.9.1.tgz#76b306cb89ac465946e9328228a20c5e7b83b534"
   integrity sha512-0gEoi2Lb54MFYPOmdTfxlNKxI7kCOvNV7gP8lxMXJ7nCazF5OqOOZIVshfWjDLrc0QrSV6XdVvwPV9GDn4wBMg==
 
-"@sentry/browser@5.24.2":
-  version "5.24.2"
-  resolved "https://registry.npmjs.org/@sentry/browser/-/browser-5.24.2.tgz"
-  integrity sha512-P/uZC/VrLRpU7MVEJnlZK5+AkEmuHu+mns5gC91Z4gjn7GamjR/CaXVedHGw/15ZrsQiAiwoWwuxpv4Ypd/+SA==
+"@sentry/browser-utils@10.74.0":
+  version "10.74.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser-utils/-/browser-utils-10.74.0.tgz#8d79baee03646ecaeeec9f5ae998ea8306f5351e"
+  integrity sha512-/Rh3WH4i2nStdOqHpaWocbpSMFPjKhlxKQgp9vkJBSolqjJzXlIpLYXOrldZHHZLG1iDoX3PFBQkNDYcPXCg0A==
   dependencies:
-    "@sentry/core" "5.24.2"
-    "@sentry/types" "5.24.2"
-    "@sentry/utils" "5.24.2"
-    tslib "^1.9.3"
+    "@sentry/conventions" "^0.16.0"
+    "@sentry/core" "10.74.0"
+
+"@sentry/browser@10.74.0":
+  version "10.74.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-10.74.0.tgz#31d972c1fb150f8f77991870b1e78eed9ef7b56b"
+  integrity sha512-U6Zn+YcAgnR7bXZmpjMxivptPSsOeDKV+SlSqbJZqViOaCcZSG/vJiQr50UrdTccCwiU1LnwuOOoclJOvW+cLQ==
+  dependencies:
+    "@sentry/browser-utils" "10.74.0"
+    "@sentry/conventions" "^0.16.0"
+    "@sentry/core" "10.74.0"
+    "@sentry/feedback" "10.74.0"
+    "@sentry/replay" "10.74.0"
+    "@sentry/replay-canvas" "10.74.0"
 
 "@sentry/bundler-plugin-core@4.9.1":
   version "4.9.1"
@@ -2379,47 +2389,40 @@
     "@sentry/cli-win32-i686" "2.58.6"
     "@sentry/cli-win32-x64" "2.58.6"
 
-"@sentry/core@5.24.2":
-  version "5.24.2"
-  resolved "https://registry.npmjs.org/@sentry/core/-/core-5.24.2.tgz"
-  integrity sha512-nuAwCGU1l9hgMinl5P/8nIQGRXDP2FI9cJnq5h1qiP/XIOvJkJz2yzBR6nTyqr4vBth0tvxQJbIpDNGd7vHJLg==
-  dependencies:
-    "@sentry/hub" "5.24.2"
-    "@sentry/minimal" "5.24.2"
-    "@sentry/types" "5.24.2"
-    "@sentry/utils" "5.24.2"
-    tslib "^1.9.3"
+"@sentry/conventions@^0.16.0":
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/@sentry/conventions/-/conventions-0.16.0.tgz#3b58d15714cf44dca1518496c00749eec5525009"
+  integrity sha512-fO9PLmHdVURcSPUpWCItWAtgKiMwGdJHbovoSEyLplX5sxs2ugvI4CBPTrkkgqhObnZOD0CnWBKDzSVQYBKEyQ==
 
-"@sentry/hub@5.24.2":
-  version "5.24.2"
-  resolved "https://registry.npmjs.org/@sentry/hub/-/hub-5.24.2.tgz"
-  integrity sha512-xmO1Ivvpb5Qr9WgekinuZZlpl9Iw7iPETUe84HQOhUrXf+2gKO+LaUYMMsYSVDwXQEmR6/tTMyOtS6iavldC6w==
+"@sentry/core@10.74.0":
+  version "10.74.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-10.74.0.tgz#e49ba8b19dba044992c4e40b0dfd086163e13996"
+  integrity sha512-u9rY8vcZfktccwm6LznfCZlqP5C9A+p76r4/pFS1grqpuTO0m21Cl8rosnlESrDGP/Xd9tfr91rWYk0jPH8jeQ==
   dependencies:
-    "@sentry/types" "5.24.2"
-    "@sentry/utils" "5.24.2"
-    tslib "^1.9.3"
+    "@sentry/conventions" "^0.16.0"
 
-"@sentry/minimal@5.24.2":
-  version "5.24.2"
-  resolved "https://registry.npmjs.org/@sentry/minimal/-/minimal-5.24.2.tgz"
-  integrity sha512-biFpux5bI3R8xiD/Zzvrk1kRE6bqPtfWXmZYAHRtaUMCAibprTKSY9Ta8QYHynOAEoJ5Akedy6HUsEkK5DoZfA==
+"@sentry/feedback@10.74.0":
+  version "10.74.0"
+  resolved "https://registry.yarnpkg.com/@sentry/feedback/-/feedback-10.74.0.tgz#31b679ab625b8ef27836b2b989eddfa90e90cb24"
+  integrity sha512-WwUao9K2XgRIxTUTaBhm7aglhsyP7LQTGi2lxvFbXzlSagUzwew/EL2c5oqQ23Mjn94i5SY+rM4wMdgyWdtpAw==
   dependencies:
-    "@sentry/hub" "5.24.2"
-    "@sentry/types" "5.24.2"
-    tslib "^1.9.3"
+    "@sentry/core" "10.74.0"
 
-"@sentry/types@5.24.2":
-  version "5.24.2"
-  resolved "https://registry.npmjs.org/@sentry/types/-/types-5.24.2.tgz"
-  integrity sha512-HcOK00R0tQG5vzrIrqQ0jC28+z76jWSgQCzXiessJ5SH/9uc6NzdO7sR7K8vqMP2+nweCHckFohC8G0T1DLzuQ==
-
-"@sentry/utils@5.24.2":
-  version "5.24.2"
-  resolved "https://registry.npmjs.org/@sentry/utils/-/utils-5.24.2.tgz"
-  integrity sha512-oPGde4tNEDHKk0Cg9q2p0qX649jLDUOwzJXHKpd0X65w3A6eJByDevMr8CSzKV9sesjrUpxqAv6f9WWlz185tA==
+"@sentry/replay-canvas@10.74.0":
+  version "10.74.0"
+  resolved "https://registry.yarnpkg.com/@sentry/replay-canvas/-/replay-canvas-10.74.0.tgz#bd56ae75f32ff58225a0abccf18e2873f491fd47"
+  integrity sha512-HAdu4ViRsuOD5ifphQR24HugL0geZXV8LnGQVkA8vlzZWiuYgGNqDRoUWI75IgVcCYLYSaVBoKN+jTimdzG/sQ==
   dependencies:
-    "@sentry/types" "5.24.2"
-    tslib "^1.9.3"
+    "@sentry/core" "10.74.0"
+    "@sentry/replay" "10.74.0"
+
+"@sentry/replay@10.74.0":
+  version "10.74.0"
+  resolved "https://registry.yarnpkg.com/@sentry/replay/-/replay-10.74.0.tgz#088a07a1cb9b1d8f6080a74435278695abdc2413"
+  integrity sha512-amIu0zKzhQJZoWmlwfFnn/uKRGyF+Tikph3lBgYwj5XbHv4U94PQXi9Ll8CYzzLVS7BkrCVc2Hl7RvpRg5M2Yg==
+  dependencies:
+    "@sentry/browser-utils" "10.74.0"
+    "@sentry/core" "10.74.0"
 
 "@sentry/webpack-plugin@4.9.1":
   version "4.9.1"
@@ -11378,7 +11381,7 @@ tslib@^1.10.0:
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.13.0.tgz"
   integrity sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
 
-tslib@^1.9.0, tslib@^1.9.3:
+tslib@^1.9.0:
   version "1.10.0"
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.10.0.tgz"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
