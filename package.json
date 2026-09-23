@@ -10,9 +10,9 @@
         "react-dom": "16.14.0",
         "react-redux": "7.2.9",
         "react-router-dom": "7.18.4",
-        "redux": "4.2.1",
+        "redux": "5.0.1",
         "redux-localstorage-simple": "2.5.1",
-        "redux-thunk": "2.4.2",
+        "redux-thunk": "3.1.0",
         "styled-components": "6.5.3",
         "time-convert": "0.0.2"
     },
