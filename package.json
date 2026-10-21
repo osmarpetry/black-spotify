@@ -2,7 +2,7 @@
     "name": "spotify-black",
     "version": "0.1.0",
     "dependencies": {
-        "@fortawesome/fontawesome-svg-core": "1.2.31",
+        "@fortawesome/fontawesome-svg-core": "1.2.36",
         "@fortawesome/free-solid-svg-icons": "7.3.1",
         "@fortawesome/react-fontawesome": "0.1.11",
         "query-string": "9.5.1",
