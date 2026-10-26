@@ -261,8 +261,8 @@ importers:
         specifier: 7.10.0
         version: 7.10.0(supports-color@8.1.1)
       eslint-config-prettier:
-        specifier: 6.12.0
-        version: 6.12.0(eslint@7.10.0(supports-color@8.1.1))
+        specifier: 10.1.8
+        version: 10.1.8(eslint@7.10.0(supports-color@8.1.1))
       eslint-plugin-import:
         specifier: 2.32.0
         version: 2.32.0(eslint@7.10.0(supports-color@8.1.1))(supports-color@8.1.1)
@@ -2910,11 +2910,11 @@ packages:
     resolution: {integrity: sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg==}
     engines: {node: '>=0.8.0'}
 
-  eslint-config-prettier@6.12.0:
-    resolution: {integrity: sha512-9jWPlFlgNwRUYVoujvWTQ1aMO8o6648r+K7qU7K5Jmkbyqav1fuEZC0COYpGBxyiAJb65Ra9hrmFx19xRGwXWw==}
+  eslint-config-prettier@10.1.8:
+    resolution: {integrity: sha512-82GZUjRS0p/jganf6q1rEO25VSoHH0hKPCTrgillPjdI/3bgBhAE1QzHrHTizjpRvy6pGAvKjDJtk2pF9NDq8w==}
     hasBin: true
     peerDependencies:
-      eslint: '>=3.14.1'
+      eslint: '>=7.0.0'
 
   eslint-import-resolver-node@0.3.10:
     resolution: {integrity: sha512-tRrKqFyCaKict5hOd244sL6EQFNycnMQnBe+j8uqGNXYzsImGbGUU4ibtoaBmv5FLwJwcFJNeg1GeVjQfbMrDQ==}
@@ -3239,10 +3239,6 @@ packages:
   get-proto@1.0.1:
     resolution: {integrity: sha512-sTSfBjoXBp89JvIKIefqw7U2CCebsc74kiY6awiGogKtoSGbgjYE/G/+l9sF3MWFPNc9IcoOC4ODfKHfxFmp0g==}
     engines: {node: '>= 0.4'}
-
-  get-stdin@6.0.0:
-    resolution: {integrity: sha512-jp4tHawyV7+fkkSKyvjuLZswblUtz+SQKzSWnBbii16BuZksJlU1wuBYXY75r+duh/llF1ur6oNwi+2ZzjKZ7g==}
-    engines: {node: '>=4'}
 
   get-stream@5.2.0:
     resolution: {integrity: sha512-nBF+F1rAZVCu/p7rjzgA+Yb4lfYXrpl7a6VmJrU8wF9I1CKvP/QwPNZHnOlwbTkY6dvtFIzFMSyQXbLoTQPRpA==}
@@ -8922,10 +8918,9 @@ snapshots:
 
   escape-string-regexp@1.0.5: {}
 
-  eslint-config-prettier@6.12.0(eslint@7.10.0(supports-color@8.1.1)):
+  eslint-config-prettier@10.1.8(eslint@7.10.0(supports-color@8.1.1)):
     dependencies:
       eslint: 7.10.0(supports-color@8.1.1)
-      get-stdin: 6.0.0
 
   eslint-import-resolver-node@0.3.10(supports-color@8.1.1):
     dependencies:
@@ -9327,8 +9322,6 @@ snapshots:
     dependencies:
       dunder-proto: 1.0.1
       es-object-atoms: 1.1.2
-
-  get-stdin@6.0.0: {}
 
   get-stream@5.2.0:
     dependencies:
