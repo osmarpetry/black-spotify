@@ -13,6 +13,9 @@ updates:
       # react-router 7 needs React 18; this app is on React 16
       - dependency-name: react-router-dom
         update-types: ["version-update:semver-major"]
+      # @babel/runtime must match the major of @babel/plugin-transform-runtime (7)
+      - dependency-name: "@babel/runtime"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
