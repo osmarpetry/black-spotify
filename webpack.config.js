@@ -28,7 +28,6 @@ module.exports = (env, arg) => {
                 }
             ]
         }),
-        new webpack.HashedModuleIdsPlugin(),
         new CompressionPlugin({
             cache: true,
             algorithm: 'gzip',
@@ -108,6 +107,7 @@ module.exports = (env, arg) => {
         },
         plugins: webpackPlugins,
         optimization: {
+            moduleIds: 'deterministic',
             minimizer: [new TerserPlugin()],
             runtimeChunk: 'single',
             splitChunks: {
