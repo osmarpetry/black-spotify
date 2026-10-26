@@ -22,7 +22,7 @@ See [DEVELOPMENT.md](./DEVELOPMENT.md) for full setup instructions.
 
 ## How to contribute
 
-Fork the repository, create a branch from `master`, make your changes, and open a pull request back to `master`.
+Fork the repository, create a branch from `main`, make your changes, and open a pull request back to `main`.
 
 ### Where help is needed
 
