@@ -7,7 +7,7 @@ import logo from './spotify-logo.svg'
 
 import { Provider } from 'react-redux'
 import { applyMiddleware, createStore } from 'redux'
-import thunk from 'redux-thunk'
+import { thunk } from 'redux-thunk'
 import { load, save } from 'redux-localstorage-simple'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
