@@ -1,0 +1,8 @@
+allowBuilds:
+  '@fortawesome/fontawesome-common-types': false
+  '@fortawesome/fontawesome-svg-core': false
+  core-js: false
+  cucumber-expressions: false
+  cypress: true
+  es5-ext: false
+  fsevents: false
