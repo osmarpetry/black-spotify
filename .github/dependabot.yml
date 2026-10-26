@@ -9,6 +9,10 @@ updates:
       npm:
         patterns: ["*"]
         update-types: ["minor", "patch"]
+    ignore:
+      # react-router 7 needs React 18; this app is on React 16
+      - dependency-name: react-router-dom
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
