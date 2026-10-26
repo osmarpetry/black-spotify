@@ -83,7 +83,7 @@ module.exports = (env, arg) => {
         devServer: {
             compress: true,
             historyApiFallback: true,
-            overlay: true,
+            client: { overlay: true },
             port: 8080
         },
         plugins: webpackPlugins,
