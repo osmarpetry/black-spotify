@@ -29,7 +29,6 @@ module.exports = (env, arg) => {
             ]
         }),
         new CompressionPlugin({
-            cache: true,
             algorithm: 'gzip',
             compressionOptions: { level: 9 },
             threshold: 10240,
