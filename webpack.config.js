@@ -70,7 +70,8 @@ module.exports = (env, arg) => {
                 },
                 {
                     test: /\.html$/,
-                    use: ['html-loader'],
+                    // keep URLs as written; html-loader 2+ resolves /x paths as modules
+                    use: [{ loader: 'html-loader', options: { sources: false } }],
                     exclude: /node_modules/
                 },
                 {
