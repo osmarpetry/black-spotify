@@ -3,11 +3,8 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
-const { GenerateSW } = require('workbox-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
-const SentryCliPlugin = require('@sentry/webpack-plugin')
 const WebpackPwaManifest = require('webpack-pwa-manifest')
-const packageFile = require('./package.json')
 
 module.exports = (env, arg) => {
     const webpackPlugins = [
@@ -46,22 +43,6 @@ module.exports = (env, arg) => {
             SPOTIFY_REDIRECT_URI: ''
         })
     ]
-
-    if (arg.mode !== 'development') {
-        webpackPlugins.concat([
-            new SentryCliPlugin({
-                include: path.join(__dirname, 'dist'),
-                ignore: ['node_modules', 'webpack.*.js'],
-                release: packageFile.version,
-                configFile: 'sentry.properties'
-            }),
-            new GenerateSW({
-                swDest: 'sw.js',
-                clientsClaim: true,
-                skipWaiting: true
-            })
-        ])
-    }
 
     return {
         entry: ['./src/index.js'],
