@@ -54,7 +54,7 @@ cd black-spotify
 ### 2. Install dependencies
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### 3. Configure Spotify Developer Dashboard
@@ -77,7 +77,7 @@ SPOTIFY_REDIRECT_URI=http://localhost:8080
 ### 5. Start the dev server
 
 ```bash
-npm start
+pnpm start
 ```
 
 Open [http://localhost:8080](http://localhost:8080).
@@ -90,9 +90,9 @@ Open [http://localhost:8080](http://localhost:8080).
 
 | Field | Value |
 |---|---|
-| Branch to deploy | `master` |
+| Branch to deploy | `main` |
 | Base directory | *(leave empty)* |
-| Build command | `npm run release` |
+| Build command | `pnpm release` |
 | Publish directory | `dist` |
 | Functions directory | *(leave empty)* |
 
@@ -109,7 +109,7 @@ After adding the Netlify URL, also add it as a Redirect URI in the Spotify Dashb
 
 ### Deploy
 
-Push to `master` — Netlify auto-builds and deploys.
+Push to `main` — Netlify auto-builds and deploys.
 
 ---
 
@@ -117,7 +117,7 @@ Push to `master` — Netlify auto-builds and deploys.
 
 | Command | Description |
 |---|---|
-| `npm start` | Start local dev server on port 8080 |
-| `npm run release` | Production build to `dist/` |
-| `npm test` | Run unit tests |
-| `npm run lint` | Lint source files |
+| `pnpm start` | Start local dev server on port 8080 |
+| `pnpm release` | Production build to `dist/` |
+| `pnpm test` | Run unit tests |
+| `pnpm lint` | Lint source files |
